@@ -3,18 +3,83 @@
   <h1>
     Welcome to {{ title }}!
   </h1>
-  <img width="300" alt="Angular Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
 </div>
-<h2>Here are some links to help you start: </h2>
-<ul>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/tutorial">Tour of Heroes</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://github.com/angular/angular-cli/wiki">CLI Documentation</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://blog.angular.io/">Angular blog</a></h2>
-  </li>
-</ul>
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
+      <form [formGroup]="signUpForm" (ngSubmit)="onSubmit()">
+        <div formGroupName="userData">
+          <div class="form-group">
+            <label for="username">Username</label>
+            <input type="text" id="username" formControlName="username" class="form-control">
+            <span *ngIf="!signUpForm.get('userData.username').valid && signUpForm.get('userData.username').touched" class="help-block">
+              <span *ngIf="signUpForm.get('userData.username').errors['invalidName']" class="help-block">Name is invalid</span>
+              <span *ngIf="signUpForm.get('userData.username').errors['required']">This field is required</span>
+            </span>
+          </div>
+          <div class="form-group">
+            <label for="email">email</label>
+            <input type="text" id="email" formControlName="email" class="form-control">
+            <span *ngIf="!signUpForm.get('userData.email').valid && signUpForm.get('userData.email').touched" class="help-block">Please Enter a valid Email</span>
+          </div>
+        </div>
+        <div class="radio" *ngFor="let gender of genders">
+          <label>
+            <input type="radio" formControlName="gender" [value]="gender">{{ gender }}
+          </label>
+        </div>
+        <div formArrayName="hobbies">
+          <h3>Add Hobbies</h3>
+          <button id="btn" (click)="addHobbies()" type="button" class="btn btn-primary">Add Hobbies</button>
+          <br>
+          <div class="form-group" *ngFor="let hobbie of signUpForm.get('hobbies').controls; let i = index">
+            <input type="text" class="form-control" [formControlName]="i" placeholder="Add Hobbies">
+          </div>
+        </div>
+        <br>
+        <button class=" btn btn-primary " type="submit ">Submit</button>
+      </form>
+    </div>
+  </div>
+</div>
+<form class="form-horizontal">
+  <fieldset>
+  
+  <!-- Form Name -->
+  <legend>Form Name</legend>
+  
+  <!-- Text input-->
+  <div class="form-group">
+    <label class="col-md-4 control-label" for="textinput">Text Input</label>  
+    <div class="col-md-4">
+    <input id="textinput" name="textinput" type="text" placeholder="placeholder" class="form-control input-md">
+    <span class="help-block">help</span>  
+    </div>
+  </div>
+  
+  <!-- Textarea -->
+  <div class="form-group">
+    <label class="col-md-4 control-label" for="textarea">Text Area</label>
+    <div class="col-md-4">                     
+      <textarea class="form-control" id="textarea" name="textarea">default text</textarea>
+    </div>
+  </div>
+  
+  <!-- Button -->
+  <div class="form-group">
+    <label class="col-md-4 control-label" for="singlebutton">Single Button</label>
+    <div class="col-md-4">
+      <button id="singlebutton" name="singlebutton" class="btn btn-primary">Button</button>
+    </div>
+  </div>
+  
+  </fieldset>
+  </form>
+  
 
+
+<!-- Reactive form
+[FormGroup] should be attached to form element and equal the name of your FormGroup property in class
+formControlName="gender " added to each input and should match the formControl key
+in OnInit method
+-->
