@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormArray } from "@angular/forms";
 
@@ -11,6 +12,9 @@ export class AppComponent implements OnInit {
   //variables
   submitForm: FormGroup;
 
+  constructor(private http: HttpClient) {
+  }
+
   // form initialised
   ngOnInit() {
     this.submitForm = new FormGroup({
@@ -22,8 +26,16 @@ export class AppComponent implements OnInit {
   // dummy submit only for example
   onSubmit() {
     console.log(this.submitForm.value);
-    alert('Form submitted');
-    this.submitForm.reset();
+    this.http.post('https://api.goblin-software.com/openquestion',
+      this.submitForm.value)
+      .subscribe(resp => {
+        alert('Form submitted');
+        this.submitForm.reset();
+      }, error => {
+        alert('Form submitt failed');
+        this.submitForm.reset();
+      });
+
   }
 
 }
