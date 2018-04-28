@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormArray } from "@angular/forms";
+import { environment } from '../environments/environment';
 
 @Component({
   selector: 'app-root',
@@ -26,7 +27,7 @@ export class AppComponent implements OnInit {
   // dummy submit only for example
   onSubmit() {
     console.log(this.submitForm.value);
-    this.http.post('https://api.goblin-software.com/openquestion',
+    this.http.post(environment.service_base_url + environment.service_endpoint,
       this.submitForm.value)
       .subscribe(resp => {
         alert('Form submitted');
