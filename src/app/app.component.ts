@@ -11,13 +11,11 @@ export class AppComponent implements OnInit {
   //variables
   submitForm: FormGroup;
 
- // form initialised
+  // form initialised
   ngOnInit() {
     this.submitForm = new FormGroup({
-      'userData': new FormGroup({
-        'username': new FormControl(null, [Validators.required]),
-        'question': new FormControl(null, [Validators.required])
-      }),
+      'username': new FormControl(null, [Validators.required]),
+      'question': new FormControl(null, [Validators.required])
     })
   }
 

@@ -8,20 +8,20 @@
   <div class="row">
     <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
       <form [formGroup]="submitForm" (ngSubmit)="onSubmit()">
-        <div formGroupName="userData">
-          <div class="form-group">
-            <label for="username">Username</label>
-            <input type="text" id="username" formControlName="username" class="form-control">
-            <span *ngIf="!submitForm.get('userData.username').valid && submitForm.get('userData.username').touched" class="help-block">
-              <span *ngIf="submitForm.get('userData.username').errors['required']">This field is required</span>
-            </span>
-          </div>
-          <div class="form-group">
-            <label class="col-md-4 control-label" id="question" for="question">Question</label>
-            <textarea class="form-control" id="question" name="question" formControlName="question">default text</textarea>
-            <span *ngIf="!submitForm.get('userData.question').valid && submitForm.get('userData.question').touched" class="help-block">Please Enter a valid Email</span>
-          </div>
+
+        <div class="form-group">
+          <label for="username">Username</label>
+          <input type="text" id="username" formControlName="username" class="form-control">
+          <span *ngIf="!submitForm.get('username').valid && submitForm.get('username').touched" class="help-block">
+            <span *ngIf="submitForm.get('username').errors['required']">This field is required</span>
+          </span>
         </div>
+        <div class="form-group">
+          <label class="ontrol-label" id="question" for="question">Question</label>
+          <textarea class="form-control" id="question" name="question" formControlName="question">your question here</textarea>
+          <span *ngIf="!submitForm.get('question').valid && submitForm.get('question').touched" class="help-block">Please Enter a valid Email</span>
+        </div>
+
         <br>
         <button class=" btn btn-primary " type="submit ">Submit</button>
       </form>
