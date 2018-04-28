@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators, FormArray } from "@angular/forms";
+import { FormGroup, FormControl, Validators, FormArray } from '@angular/forms';
 import { environment } from '../environments/environment';
 
 @Component({
@@ -10,7 +10,7 @@ import { environment } from '../environments/environment';
 })
 export class AppComponent implements OnInit {
 
-  //variables
+  // the form
   submitForm: FormGroup;
 
   constructor(private http: HttpClient) {
@@ -21,7 +21,7 @@ export class AppComponent implements OnInit {
     this.submitForm = new FormGroup({
       'username': new FormControl(null, [Validators.required]),
       'question': new FormControl(null, [Validators.required])
-    })
+    });
   }
 
   // dummy submit only for example
