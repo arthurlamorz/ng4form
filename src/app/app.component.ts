@@ -24,17 +24,31 @@ export class AppComponent implements OnInit {
     });
   }
 
+  validateAllFormFields(formGroup: FormGroup) {         
+  Object.keys(formGroup.controls).forEach(field => {  
+    const control = formGroup.get(field);             
+    if (control instanceof FormControl) {             
+      control.markAsTouched({ onlySelf: true });
+    } else if (control instanceof FormGroup) {        
+      this.validateAllFormFields(control);            
+    }
+  });
+}
+
   // dummy submit only for example
   onSubmit() {
     console.log(this.submitForm.value);
+    if (!this.submitForm.valid) {
+      this.validateAllFormFields(this.submitForm);
+      return;
+    }
     this.http.post(environment.service_base_url + environment.service_endpoint,
       this.submitForm.value)
       .subscribe(resp => {
-        alert('Form submitted');
+        alert('Question submitted');
         this.submitForm.reset();
       }, error => {
-        alert('Form submitt failed');
-        this.submitForm.reset();
+        alert('Question submit failed');
       });
 
   }
